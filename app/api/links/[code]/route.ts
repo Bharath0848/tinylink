@@ -1,15 +1,15 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getLink, deleteLink } from "@/lib/linkService";
 
 export async function GET(
-  req: Request,
-  { params }: { params: { code: string } }
+  request: NextRequest,
+  context: { params: Promise<{ code: string }> }
 ) {
-  const { code } = params;
+  const { code } = await context.params; // await the Promise
 
   const link = await getLink(code);
 
-  if (!link || link.deleted) {
+  if (!link) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
@@ -17,15 +17,16 @@ export async function GET(
 }
 
 export async function DELETE(
-  req: Request,
-  { params }: { params: { code: string } }
+  request: NextRequest,
+  context: { params: Promise<{ code: string }> }
 ) {
-  const { code } = params;
+  const { code } = await context.params;
 
-  try {
-    await deleteLink(code);
-    return new NextResponse(null, { status: 204 });
-  } catch {
-    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  const deleted = await deleteLink(code);
+
+  if (!deleted) {
+    return NextResponse.json({ error: "Delete failed" }, { status: 400 });
   }
+
+  return NextResponse.json({ message: "Deleted successfully" });
 }
