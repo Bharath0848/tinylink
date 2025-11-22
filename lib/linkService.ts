@@ -1,4 +1,5 @@
-import { prisma } from "./db";
+import { prisma } from "@/lib/db";
+
 import { generateCode } from "@/utils/generateCode";
 import { isValidUrl } from "@/utils/validateUrl";
 
