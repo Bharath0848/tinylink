@@ -53,7 +53,7 @@ export default function LinksTable({ links }: any) {
               </button>
 
               <a
-                href={`/links/${link.code}`}
+                href={`/code/${link.code}`}
                 className="bg-blue-500 text-white px-2 py-1 rounded"
               >
                 Stats
