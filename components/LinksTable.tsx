@@ -23,7 +23,7 @@ export default function LinksTable({ links }: any) {
             <td className="border p-2">
               <a
                 className="text-blue-600 underline"
-                href={`/${link.code}`}
+                href={`/r/${link.code}`}
                 target="_blank"
               >
                 {link.code}
@@ -37,7 +37,7 @@ export default function LinksTable({ links }: any) {
               <button
                 onClick={() =>
                   navigator.clipboard.writeText(
-                    `${window.location.origin}/${link.code}`
+                    `${window.location.origin}/r/${link.code}`
                   )
                 }
                 className="bg-gray-200 px-2 py-1 rounded"
