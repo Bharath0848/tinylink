@@ -1,3 +1,6 @@
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 import { NextResponse } from "next/server";
 import { getLink, incrementClick } from "@/lib/linkService";
 
@@ -11,5 +14,6 @@ export async function GET(req: Request, { params }: any) {
   }
 
   await incrementClick(code);
+
   return NextResponse.redirect(link.targetUrl, 302);
 }
