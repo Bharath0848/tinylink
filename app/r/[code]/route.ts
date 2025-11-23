@@ -6,8 +6,11 @@ export const fetchCache = "force-no-store";
 import { NextResponse } from "next/server";
 import { getLink, incrementClick } from "@/lib/linkService";
 
-export async function GET(req: Request, { params }: any) {
-  const { code } = params;
+export async function GET(
+  req: Request,
+  context: { params: Promise<{ code: string }> }
+) {
+  const { code } = await context.params;
 
   const link = await getLink(code);
 

@@ -1,12 +1,11 @@
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-export const fetchCache = "force-no-store";
-
 import { getLink } from "@/lib/linkService";
 
-export default async function StatsPage({ params }: any) {
-  const link = await getLink(params.code);
+export default async function StatsPage(
+  context: { params: Promise<{ code: string }> }
+) {
+  const { code } = await context.params;
+
+  const link = await getLink(code);
 
   if (!link) {
     return <div className="p-10 text-red-600">Not found</div>;
